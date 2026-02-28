@@ -2,17 +2,45 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Código VIP - SensProElite</title>
+<title>Área VIP - SensPro Elite</title>
 </head>
-<body>
 
-<h1>Área VIP</h1>
-<p>Digite seu código VIP para acessar conteúdos exclusivos.</p>
+<body style="background:black;color:white;text-align:center;font-family:Arial;">
 
-<input type="text" placeholder="Digite o código VIP">
-<button>Verificar</button>
+<h1>Área VIP 🔐</h1>
+<p>Digite seu código VIP:</p>
 
-<p>Se você comprou e não recebeu o código, entre em contato.</p>
+<input type="text" id="codigoVIP" placeholder="Digite o código VIP">
+<br><br>
+<button onclick="verificarVIP()">Ativar VIP</button>
+
+<p id="msg"></p>
+
+<script>
+let codigosVIP = [
+"SENS-A921",
+"SENS-4K77",
+"SENS-1X93",
+"SENS-8P55",
+"VIP-AB12",
+"VIP-KL44",
+"VIP-ZX91"
+];
+
+function verificarVIP(){
+let codigo = document.getElementById("codigoVIP").value;
+
+if(codigosVIP.includes(codigo)){
+localStorage.setItem("vipAtivo","true");
+document.getElementById("msg").innerText="VIP ativado!";
+setTimeout(()=>{
+window.location.href="index.html";
+},1000);
+}else{
+document.getElementById("msg").innerText="Código inválido";
+}
+}
+</script>
 
 </body>
 </html>
