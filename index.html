@@ -92,4 +92,8 @@ document.getElementById("statusVip").innerText="Status: VIP 👑";
 </script>
 
 </body>
-  </html>
+  </html><script>
+if(localStorage.getItem("logado") !== "true"){
+    window.location.href = "login.html";
+}
+    </script>
