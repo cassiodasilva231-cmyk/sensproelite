@@ -156,19 +156,29 @@ function gerar(){
 let tipoCelular = "Normal";
 
 if(localStorage.getItem("vipAtivo")==="true"){
-    tipoCelular = prompt("Escolha seu tipo de celular:\n1 - Fraco\n2 - Médio\n3 - Gamer");
+tipoCelular = prompt(
+"Escolha seu celular:\n\n1 - Fraco\n2 - Médio\n3 - Bom\n4 - Gamer\n5 - iPhone"
+);
 
-    if(tipoCelular == "1"){
-        base -= 10;
-    }
+if(tipoCelular == "1"){
+base -= 10;
+}
 
-    if(tipoCelular == "2"){
-        base += 5;
-    }
+if(tipoCelular == "2"){
+base += 0;
+}
 
-    if(tipoCelular == "3"){
-        base += 15;
-    }
+if(tipoCelular == "3"){
+base += 10;
+}
+
+if(tipoCelular == "4"){
+base += 20;
+}
+
+if(tipoCelular == "5"){
+base += 15;
+}
 }
 
   if(hz == 90) base += 5;
