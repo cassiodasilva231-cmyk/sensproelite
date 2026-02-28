@@ -1,22 +1,95 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SensPro Elite</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+
 <style>
-body{margin:0;font-family:'Orbitron',sans-serif;background:linear-gradient(135deg,#0f0f0f,#1a1a1a);color:white;text-align:center}
-header{background:linear-gradient(90deg,#ff0000,#ff7300);padding:15px;font-size:22px;font-weight:bold}
-.container{padding:20px}
-.card{background:#1f1f1f;padding:20px;border-radius:15px;margin-bottom:20px;box-shadow:0 0 15px rgba(255,0,0,0.3)}
-input,select{width:90%;padding:10px;margin:8px;border-radius:8px;border:none}
-button{width:90%;padding:12px;border:none;border-radius:10px;background:linear-gradient(90deg,#ff0000,#ff7300);color:white;font-weight:bold;cursor:pointer}
-.vip{background:gold;color:black}
-.result{margin-top:15px;background:#111;padding:15px;border-radius:10px}
-a{color:gold}
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(180deg,#0a0a0a,#111);
+color:white;
+text-align:center;
+}
+
+header{
+background:linear-gradient(90deg,#ff0000,#ff7300);
+padding:15px;
+font-size:22px;
+font-weight:bold;
+box-shadow:0 0 15px red;
+}
+
+.container{
+padding:20px;
+max-width:420px;
+margin:auto;
+}
+
+.card{
+background:#151515;
+padding:20px;
+border-radius:18px;
+margin-top:20px;
+box-shadow:0 0 15px rgba(255,0,0,0.3);
+}
+
+input,select{
+width:100%;
+padding:12px;
+border-radius:10px;
+border:none;
+margin-top:10px;
+}
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+margin-top:15px;
+font-weight:bold;
+font-size:16px;
+cursor:pointer;
+}
+
+.btn-gerar{
+background:linear-gradient(90deg,#ff0000,#ff7300);
+color:white;
+}
+
+.btn-vip{
+background:gold;
+color:black;
+}
+
+.result{
+margin-top:15px;
+background:black;
+padding:15px;
+border-radius:12px;
+}
+
+.vip-status{
+font-size:18px;
+margin-top:10px;
+}
+
+.links{
+margin-top:25px;
+}
+
+.links a{
+color:gold;
+display:block;
+margin-top:10px;
+text-decoration:none;
+font-weight:bold;
+}
 </style>
 </head>
+
 <body>
 
 <header>🔥 SensPro Elite</header>
@@ -24,7 +97,7 @@ a{color:gold}
 <div class="container">
 
 <div class="card">
-<h3>Gerador Inteligente</h3>
+<h2>Gerador Inteligente</h2>
 
 <input type="number" id="dpi" placeholder="Digite o DPI (ex: 400)">
 
@@ -34,71 +107,87 @@ a{color:gold}
 <option value="120">120Hz</option>
 </select>
 
-<button onclick="gerar()">Gerar Configuração</button>
+<button class="btn-gerar" onclick="gerar()">Gerar Configuração</button>
 
 <div class="result" id="resultado"></div>
 </div>
 
 <div class="card">
-<h3>Área VIP 👑</h3>
-<p id="statusVip">Status: Free</p>
-<button class="vip" onclick="ativarVip()">Ativar VIP</button>
+<h2>Área VIP 👑</h2>
+<p id="statusVip" class="vip-status">Status: Free</p>
+
+<button class="btn-vip" onclick="ativarVip()">Ativar VIP</button>
 </div>
 
-<p><a href="vip.html">Comprar VIP</a></p>
-<p><a href="politica.html">Política de Privacidade</a></p>
+<div class="links">
+<a href="vip.html">Comprar VIP</a>
+<a href="politica.html">Política de Privacidade</a>
+</div>
 
 </div>
 
 <script>
+
 if(!localStorage.getItem("logado")){
-    alert("Você precisa fazer login primeiro!");
-    window.location.href = "login.html";
+window.location.href="login.html";
 }
 
-let codigosVIP = {
-"SENS-9A21": false,
-"SENS-4K77": false,
-"SENS-1X93": false,
-"SENS-8P55": false
+let codigosVIP={
+"SENS-9A21":false,
+"SENS-4K77":false,
+"SENS-1X93":false,
+"SENS-8P55":false
 };
 
 function gerar(){
+
 let dpi=document.getElementById("dpi").value;
 let hz=document.getElementById("hz").value;
-if(dpi==""){alert("Digite o DPI");return;}
+
+if(dpi===""){
+alert("Digite o DPI");
+return;
+}
+
 let base=dpi/2;
+
 if(hz==90) base+=10;
 if(hz==120) base+=20;
-if(localStorage.getItem("vipAtivo")==="true") base+=15;
-document.getElementById("resultado").innerHTML=`🎯 Geral: ${Math.floor(base)} <br>🔴 Red Dot: ${Math.floor(base-15)} <br>🔭 2x: ${Math.floor(base-25)} <br>🎯 AWM: ${Math.floor(base-40)}`;
+
+if(localStorage.getItem("vipAtivo")==="true"){
+base+=20;
+}
+
+document.getElementById("resultado").innerHTML=
+`🎯 Geral: ${Math.floor(base)} <br>
+🔴 Red Dot: ${Math.floor(base-15)} <br>
+🔫 2x: ${Math.floor(base-25)} <br>
+🎯 AWM: ${Math.floor(base-40)}`;
 }
 
 function ativarVip(){
-    if(!localStorage.getItem("logado")){
-        alert("Faça login primeiro!");
-        window.location.href = "login.html";
-        return;
-    }
-    let codigo=prompt("Digite seu código VIP:");
-    if(codigosValidos.includes(codigo)){
-        localStorage.setItem("vipAtivo","true");
-        alert("VIP ativado com sucesso 👑");
-        location.reload();
-    } else {
-        alert("Código inválido");
-    }
+
+let codigo=prompt("Digite seu código VIP");
+
+if(codigosVIP[codigo]===false){
+localStorage.setItem("vipAtivo","true");
+alert("VIP ativado 👑");
+location.reload();
+}else if(codigosVIP[codigo]===true){
+alert("Código já usado");
+}else{
+alert("Código inválido");
+}
+
 }
 
 window.onload=function(){
 if(localStorage.getItem("vipAtivo")==="true"){
 document.getElementById("statusVip").innerText="Status: VIP 👑";
-}}
+}
+}
+
 </script>
 
 </body>
-  </html><script>
-if(localStorage.getItem("logado") !== "true"){
-    window.location.href = "login.html";
-}
-    </script>
+</html>
