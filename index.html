@@ -56,7 +56,12 @@ if(!localStorage.getItem("logado")){
     window.location.href = "login.html";
 }
 
-let codigosValidos=["VIP123","ELITE2026","PRO999"];
+let codigosVIP = {
+"SENS-9A21": false,
+"SENS-4K77": false,
+"SENS-1X93": false,
+"SENS-8P55": false
+};
 
 function gerar(){
 let dpi=document.getElementById("dpi").value;
