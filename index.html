@@ -1,265 +1,121 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>SensPro Elite</title>
+<title>Sensi App</title>
 
 <style>
 body{
-margin:0;
-font-family:Arial;
-background:linear-gradient(180deg,#0a0a0a,#111);
+background:#121212;
 color:white;
+font-family:Arial;
 text-align:center;
 }
 
-header{
-background:linear-gradient(90deg,#ff0000,#ff7300);
-padding:15px;
-font-size:22px;
-font-weight:bold;
-box-shadow:0 0 15px red;
-}
-
-.container{
-padding:20px;
-max-width:420px;
-margin:auto;
-}
-
 .card{
-background:#151515;
+background:#1e1e1e;
+margin:20px;
 padding:20px;
-border-radius:18px;
-margin-top:20px;
-box-shadow:0 0 15px rgba(255,0,0,0.2);
+border-radius:12px;
 }
 
-input,select{
-width:100%;
-padding:12px;
-border-radius:10px;
-border:none;
-margin-top:10px;
+.vip{
+color:gold;
+font-weight:bold;
 }
 
 button{
-width:100%;
-padding:14px;
+padding:10px 20px;
 border:none;
-border-radius:12px;
-margin-top:15px;
-font-weight:bold;
+border-radius:8px;
+background:gold;
 cursor:pointer;
 }
-
-.btn-gerar{
-background:linear-gradient(90deg,#ff0000,#ff7300);
-color:white;
-}
-
-.btn-vip{
-background:gold;
-color:black;
-}
-
-.result{
-margin-top:15px;
-background:black;
-padding:15px;
-border-radius:12px;
-}
-
-.vip-status{
-font-size:18px;
-margin-top:10px;
-}
-
-.links{
-margin-top:25px;
-}
-
-.links a{
-color:gold;
-display:block;
-margin-top:10px;
-text-decoration:none;
-font-weight:bold;
-}
 </style>
+
 </head>
 
 <body>
 
-<header>🔥 SensPro Elite</header>
-
-<div class="container">
+<h1>Sensi Pro</h1>
 
 <div class="card">
-<h2>Gerador Inteligente</h2>
+<h2>Sensibilidade</h2>
 
-<input type="number" id="dpi" placeholder="Digite o DPI (ex: 400)">
-
-<select id="hz">
-<option value="60">60Hz</option>
-<option value="90">90Hz</option>
-<option value="120">120Hz</option>
-</select>
-
-<button class="btn-gerar" onclick="gerar()">Gerar Configuração</button>
-
-<div class="result" id="resultado"></div>
-</div>
-
-<div class="card">
-<h2>Área VIP 👑</h2>
-<p id="statusVip" class="vip-status">Status: Free</p>
-<button class="btn-vip" onclick="ativarVip()">Ativar VIP</button>
-</div>
-
-<div class="links">
-<a href="vip.html">Comprar VIP</a>
-<a href="politica.html">Política de Privacidade</a>
-</div>
+<p>Geral: <span id="geral"></span></p>
+<p>Ponto vermelho: <span id="red"></span></p>
+<p>Mira 2x: <span id="m2"></span></p>
+<p>Mira 4x: <span id="m4"></span></p>
+<p>AWM: <span id="awm"></span></p>
+<p>Olhadinha: <span id="olho"></span></p>
 
 </div>
+
+<div class="card vip" id="vipArea" style="display:none;">
+<h2>Funções VIP desbloqueadas</h2>
+<p>Sensibilidade otimizada para seu celular</p>
+</div>
+
+<br>
+
+<button onclick="window.location.href='vip.html'">
+Ativar VIP
+</button>
 
 <script>
 
-if(!localStorage.getItem("logado")){
-window.location.href="login.html";
+function detectarCelular(){
+let largura = window.innerWidth;
+
+if(largura < 400){
+return "fraco";
 }
-
-let codigosVIP = JSON.parse(localStorage.getItem("codigosVIP")) || [];
-function gerar(){
-
-let dpi = document.getElementById("dpi").value;
-let hz = document.getElementById("hz").value;
-
-if(dpi==""){
-alert("Digite o DPI");
-return;
-}
-
-let base = dpi * 0.4;
-
-/* SISTEMA VIP DE CELULAR */
-let tipoCelular = "Normal";
-
-if(localStorage.getItem("vipAtivo")==="true"){
-tipoCelular = prompt(
-"Escolha seu celular:\n\n1 - Fraco\n2 - Médio\n3 - Bom\n4 - Gamer\n5 - iPhone"
-);
-
-if(tipoCelular == "1"){
-base -= 10;
-}
-
-if(tipoCelular == "2"){
-base += 0;
-}
-
-if(tipoCelular == "3"){
-base += 10;
-}
-
-if(tipoCelular == "4"){
-base += 20;
-}
-
-if(tipoCelular == "5"){
-base += 15;
-}
-}
-
-/* AJUSTE HZ */
-
-if(hz == 90) base += 5;
-if(hz == 120) base += 10;
-
-/* BÔNUS VIP */
-
-if(localStorage.getItem("vipAtivo")==="true"){
-base += 10;
-}
-
-/* LIMITADOR MELHORADO */
-
-function limitar(valor){
-if(valor > 300) return 300;
-if(valor < 0) return 0;
-return Math.floor(valor);
-}
-
-/* CALCULO FINAL */
-
-let geral = limitar(base);
-let redDot = limitar(base - 10);
-let mira2x = limitar(base - 20);
-let mira4x = limitar(base - 30);
-let awm = limitar(base - 40);
-let olhadinha = limitar(base - 5);
-
-document.getElementById("resultado").innerHTML = `
-🎯 Geral: ${geral}<br>
-🔴 Ponto Vermelho: ${redDot}<br>
-🔭 Mira 2x: ${mira2x}<br>
-🔭 Mira 4x: ${mira4x}<br>
-🎯 AWM: ${awm}<br>
-👀 Olhadinha: ${olhadinha}
-`;
-
-}
-
-/* ATIVAR VIP */
-
-function ativarVip(){
-
-let codigoDigitado = prompt("Digite seu código VIP");
-
-let lista = JSON.parse(localStorage.getItem("codigosVIP")) || [];
-
-let codigo = lista.find(c => c.codigo === codigoDigitado);
-
-if(codigo && codigo.usado === false){
-
-codigo.usado = true;
-
-localStorage.setItem("codigosVIP", JSON.stringify(lista));
-localStorage.setItem("vipAtivo","true");
-
-alert("VIP ativado 👑");
-location.reload();
-
-}else{
-alert("Código inválido ou já usado");
-}
-
-  }
-
-let codigo = prompt("Digite seu código VIP");
-
-if(codigosVIP[codigo] === false){
-codigosVIP[codigo] = true;
-localStorage.setItem("vipAtivo","true");
-alert("VIP ativado 👑");
-location.reload();
-}
-else if(codigosVIP[codigo] === true){
-alert("Código já usado");
+else if(largura < 500){
+return "medio";
 }
 else{
-alert("Código inválido");
+return "forte";
 }
+}
+
+function gerarSensi(){
+
+let tipo = detectarCelular();
+
+let geral = Math.floor(Math.random()*200);
+let red = Math.floor(Math.random()*200);
+let m2 = Math.floor(Math.random()*200);
+let m4 = Math.floor(Math.random()*200);
+let awm = Math.floor(Math.random()*200);
+let olho = Math.floor(Math.random()*200);
+
+if(tipo === "fraco"){
+geral -= 20;
+red -= 20;
+}
+
+if(tipo === "medio"){
+geral += 5;
+}
+
+if(tipo === "forte"){
+geral += 15;
+}
+
+geral = Math.min(200, Math.max(0, geral));
+
+document.getElementById("geral").innerText = geral;
+document.getElementById("red").innerText = red;
+document.getElementById("m2").innerText = m2;
+document.getElementById("m4").innerText = m4;
+document.getElementById("awm").innerText = awm;
+document.getElementById("olho").innerText = olho;
 
 }
 
-/* STATUS VIP */
+gerarSensi();
 
-window.onload = function(){
-if(localStorage.getItem("vipAtivo")==="true"){
-document.getElementById("statusVip").innerText="Status: VIP 👑";
-}
+if(localStorage.getItem("vipAtivo") === "true"){
+document.getElementById("vipArea").style.display = "block";
 }
 
 </script>
