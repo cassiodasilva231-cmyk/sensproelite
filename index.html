@@ -215,6 +215,28 @@ document.getElementById("resultado").innerHTML = `
 
 function ativarVip(){
 
+let codigoDigitado = prompt("Digite seu código VIP");
+
+let lista = JSON.parse(localStorage.getItem("codigosVIP")) || [];
+
+let codigo = lista.find(c => c.codigo === codigoDigitado);
+
+if(codigo && codigo.usado === false){
+
+codigo.usado = true;
+
+localStorage.setItem("codigosVIP", JSON.stringify(lista));
+localStorage.setItem("vipAtivo","true");
+
+alert("VIP ativado 👑");
+location.reload();
+
+}else{
+alert("Código inválido ou já usado");
+}
+
+  }
+
 let codigo = prompt("Digite seu código VIP");
 
 if(codigosVIP[codigo] === false){
