@@ -1,58 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>VIP</title>
-
-<style>
-body{
-background:#020617;
-color:white;
-font-family:Arial;
-text-align:center;
-}
-
-.box{
-margin-top:80px;
-}
-
-input{
-padding:10px;
-border-radius:8px;
-border:none;
-}
-
-button{
-padding:10px 20px;
-background:gold;
-border:none;
-border-radius:8px;
-margin-top:10px;
-}
-</style>
+<title>VIP Mensal</title>
 </head>
 
-<body>
+<body style="background:#020617;color:white;text-align:center;font-family:Arial;">
 
-<div class="box">
+<h1>VIP MENSAL</h1>
 
-<h1>Ativar VIP</h1>
+<p>Preço: R$10 / mês</p>
 
-<p>Digite seu código VIP</p>
+<button onclick="pagar()">Pagar com Pix</button>
 
-<input id="codigoVIP">
+<br><br>
 
-<br>
-
-<button onclick="verificarVIP()">Ativar</button>
+<input id="codigoVIP" placeholder="Código VIP">
+<button onclick="ativar()">Ativar</button>
 
 <p id="msg"></p>
-
-</div>
 
 <script src="codes.js"></script>
 
 <script>
-function verificarVIP(){
+
+async function pagar(){
+
+let res = await fetch("/.netlify/functions/criar-pagamento");
+let data = await res.json();
+
+window.open(data.pix);
+
+}
+
+function ativar(){
 
 let codigo = document.getElementById("codigoVIP").value;
 
@@ -63,17 +43,18 @@ salvarCodigos();
 
 localStorage.setItem("vipAtivo", "true");
 
-document.getElementById("msg").innerText="VIP ativado!";
+document.getElementById("msg").innerText="VIP ativado";
 
 setTimeout(()=>{
-window.location.href="index.html";
-},1200);
+location.href="index.html";
+},1000);
 
 }else{
-document.getElementById("msg").innerText="Código inválido ou usado";
+document.getElementById("msg").innerText="Código inválido";
 }
 
 }
+
 </script>
 
 </body>
