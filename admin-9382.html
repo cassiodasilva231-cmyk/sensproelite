@@ -2,27 +2,7 @@
 <html>
 <head>
 <title>Painel Admin</title>
-<style>
-body{
-background:#0f172a;
-color:white;
-font-family:Arial;
-text-align:center;
-}
-
-button{
-padding:12px 20px;
-background:gold;
-border:none;
-border-radius:8px;
-font-size:16px;
-margin:10px;
-}
-
-.box{
-margin-top:60px;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -33,17 +13,40 @@ margin-top:60px;
 
 <button onclick="criar()">Gerar Código VIP</button>
 
-<h2 id="codigo"></h2>
+<div id="lista"></div>
 
 </div>
 
 <script src="codes.js"></script>
 
 <script>
+
 function criar(){
-let novo = gerarCodigo();
-document.getElementById("codigo").innerText = novo;
+
+let codigo = gerarCodigoVIP();
+
+mostrar();
+
+alert("Código criado: " + codigo);
 }
+
+function mostrar(){
+
+let lista = document.getElementById("lista");
+lista.innerHTML = "";
+
+for(let c in codigosVIP){
+
+let status = codigosVIP[c].usado ? "USADO" : "ATIVO";
+
+lista.innerHTML += `<p>${c} - ${status}</p>`;
+
+}
+
+}
+
+mostrar();
+
 </script>
 
 </body>
