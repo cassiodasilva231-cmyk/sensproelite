@@ -32,7 +32,7 @@ background:#151515;
 padding:20px;
 border-radius:18px;
 margin-top:20px;
-box-shadow:0 0 15px rgba(255,0,0,0.3);
+box-shadow:0 0 15px rgba(255,0,0,0.2);
 }
 
 input,select{
@@ -50,7 +50,6 @@ border:none;
 border-radius:12px;
 margin-top:15px;
 font-weight:bold;
-font-size:16px;
 cursor:pointer;
 }
 
@@ -115,7 +114,6 @@ font-weight:bold;
 <div class="card">
 <h2>Área VIP 👑</h2>
 <p id="statusVip" class="vip-status">Status: Free</p>
-
 <button class="btn-vip" onclick="ativarVip()">Ativar VIP</button>
 </div>
 
@@ -143,16 +141,18 @@ let codigosVIP={
 };
 
 function gerar(){
-  let dpi = document.getElementById("dpi").value;
-  let hz = document.getElementById("hz").value;
 
-  if(dpi==""){
-    alert("Digite o DPI");
-    return;
-  }
+let dpi = document.getElementById("dpi").value;
+let hz = document.getElementById("hz").value;
 
-  let base = dpi * 0.4;
+if(dpi==""){
+alert("Digite o DPI");
+return;
+}
 
+let base = dpi * 0.4;
+
+/* SISTEMA VIP DE CELULAR */
 let tipoCelular = "Normal";
 
 if(localStorage.getItem("vipAtivo")==="true"){
@@ -181,52 +181,69 @@ base += 15;
 }
 }
 
-  if(hz == 90) base += 5;
-  if(hz == 120) base += 10;
+/* AJUSTE HZ */
 
-  if(localStorage.getItem("vipAtivo")=="true"){
-    base += 10;
-  }
+if(hz == 90) base += 5;
+if(hz == 120) base += 10;
 
-  function limitar(valor){
-    if(valor > 200) return 200;
-    if(valor < 0) return 0;
-    return Math.floor(valor);
-  }
+/* BÔNUS VIP */
 
-  let geral = limitar(base);
-  let redDot = limitar(base - 10);
-  let mira2x = limitar(base - 20);
-  let mira4x = limitar(base - 30);
-  let awm = limitar(base - 40);
-  let olhadinha = limitar(base - 5);
+if(localStorage.getItem("vipAtivo")==="true"){
+base += 10;
+}
 
-  document.getElementById("resultado").innerHTML =
-  `🎯 Geral: ${geral} <br>
-   🔴 Ponto Vermelho: ${redDot} <br>
-   🔭 Mira 2x: ${mira2x} <br>
-   🔭 Mira 4x: ${mira4x} <br>
-   🎯 AWM: ${awm} <br>
-   👀 Olhadinha: ${olhadinha}`;
-  }
+/* LIMITADOR MELHORADO */
+
+function limitar(valor){
+if(valor > 300) return 300;
+if(valor < 0) return 0;
+return Math.floor(valor);
+}
+
+/* CALCULO FINAL */
+
+let geral = limitar(base);
+let redDot = limitar(base - 10);
+let mira2x = limitar(base - 20);
+let mira4x = limitar(base - 30);
+let awm = limitar(base - 40);
+let olhadinha = limitar(base - 5);
+
+document.getElementById("resultado").innerHTML = `
+🎯 Geral: ${geral}<br>
+🔴 Ponto Vermelho: ${redDot}<br>
+🔭 Mira 2x: ${mira2x}<br>
+🔭 Mira 4x: ${mira4x}<br>
+🎯 AWM: ${awm}<br>
+👀 Olhadinha: ${olhadinha}
+`;
+
+}
+
+/* ATIVAR VIP */
 
 function ativarVip(){
 
-let codigo=prompt("Digite seu código VIP");
+let codigo = prompt("Digite seu código VIP");
 
-if(codigosVIP[codigo]===false){
+if(codigosVIP[codigo] === false){
+codigosVIP[codigo] = true;
 localStorage.setItem("vipAtivo","true");
 alert("VIP ativado 👑");
 location.reload();
-}else if(codigosVIP[codigo]===true){
+}
+else if(codigosVIP[codigo] === true){
 alert("Código já usado");
-}else{
+}
+else{
 alert("Código inválido");
 }
 
 }
 
-window.onload=function(){
+/* STATUS VIP */
+
+window.onload = function(){
 if(localStorage.getItem("vipAtivo")==="true"){
 document.getElementById("statusVip").innerText="Status: VIP 👑";
 }
