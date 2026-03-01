@@ -1,46 +1,26 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<title>Área VIP - SensPro Elite</title>
-</head>
-
-<body style="background:black;color:white;text-align:center;font-family:Arial;">
-
-<h1>Área VIP 🔐</h1>
-<p>Digite seu código VIP:</p>
-
-<input type="text" id="codigoVIP" placeholder="Digite o código VIP">
-<br><br>
-<button onclick="verificarVIP()">Ativar VIP</button>
-
-<p id="msg"></p>
+<script src="codes.js"></script>
 
 <script>
-let codigosVIP = [
-"SENS-A921",
-"SENS-4K77",
-"SENS-1X93",
-"SENS-8P55",
-"VIP-AB12",
-"VIP-KL44",
-"VIP-ZX91"
-];
-
 function verificarVIP(){
+
 let codigo = document.getElementById("codigoVIP").value;
 
-if(codigosVIP.includes(codigo)){
+if(codigosVIP[codigo] && !codigosVIP[codigo].usado){
+
+codigosVIP[codigo].usado = true;
+salvarCodigos();
+
 localStorage.setItem("vipAtivo","true");
-document.getElementById("msg").innerText="VIP ativado!";
+
+document.getElementById("msg").innerText = "VIP ativado!";
+
 setTimeout(()=>{
 window.location.href="index.html";
 },1000);
+
 }else{
-document.getElementById("msg").innerText="Código inválido";
+document.getElementById("msg").innerText = "Código inválido ou já usado";
 }
+
 }
 </script>
-
-</body>
-</html>
