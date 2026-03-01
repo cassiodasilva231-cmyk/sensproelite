@@ -1,3 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Painel Admin</title>
+</head>
+
+<body style="background:black;color:white;text-align:center;font-family:Arial;">
+
+<h1>Painel Admin</h1>
+
+<button onclick="gerarCodigo()">Gerar Código VIP</button>
+
+<div id="lista"></div>
+
 <script src="codes.js"></script>
 
 <script>
@@ -9,7 +24,6 @@ usado:false
 };
 
 salvarCodigos();
-
 mostrarCodigos();
 }
 
@@ -25,3 +39,6 @@ lista.innerHTML += `<p>${codigo} - ${status}</p>`;
 
 mostrarCodigos();
 </script>
+
+</body>
+</html>
