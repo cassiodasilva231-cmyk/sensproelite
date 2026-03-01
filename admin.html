@@ -1,44 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Painel Admin</title>
-</head>
-
-<body style="background:black;color:white;text-align:center;font-family:Arial;">
-
-<h1>Painel Admin 🔑</h1>
-
-<input type="password" id="senha" placeholder="Senha admin">
-<br><br>
-<button onclick="login()">Entrar</button>
-
-<div id="painel" style="display:none;">
-<h2>Gerar Código VIP</h2>
-<button onclick="gerarCodigo()">Gerar Código</button>
-<p id="codigoGerado"></p>
-</div>
+<script src="codes.js"></script>
 
 <script>
-
-let senhaAdmin = "senspro123";
-
-function login(){
-let senha = document.getElementById("senha").value;
-
-if(senha === senhaAdmin){
-document.getElementById("painel").style.display = "block";
-}else{
-alert("Senha errada");
-}
-}
-
 function gerarCodigo(){
-let codigo = "VIP-" + Math.random().toString(36).substring(2,7).toUpperCase();
-document.getElementById("codigoGerado").innerText = codigo;
+let codigo = "VIP-" + Math.random().toString(36).substring(2,8).toUpperCase();
+
+codigosVIP[codigo] = {
+usado:false
+};
+
+salvarCodigos();
+
+mostrarCodigos();
 }
 
-</script>
+function mostrarCodigos(){
+let lista = document.getElementById("lista");
+lista.innerHTML = "";
 
-</body>
-</html>
+for(let codigo in codigosVIP){
+let status = codigosVIP[codigo].usado ? "USADO" : "DISPONÍVEL";
+lista.innerHTML += `<p>${codigo} - ${status}</p>`;
+}
+}
+
+mostrarCodigos();
+</script>
