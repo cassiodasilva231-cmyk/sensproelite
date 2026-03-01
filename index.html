@@ -1,121 +1,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Sensi App</title>
+<title>Sens Pro Elite</title>
 
 <style>
 body{
-background:#121212;
+background:#020617;
 color:white;
 font-family:Arial;
 text-align:center;
-}
-
-.card{
-background:#1e1e1e;
-margin:20px;
-padding:20px;
-border-radius:12px;
-}
-
-.vip{
-color:gold;
-font-weight:bold;
 }
 
 button{
 padding:10px 20px;
 border:none;
 border-radius:8px;
+margin:5px;
+}
+
+.vip{
 background:gold;
-cursor:pointer;
+}
+
+.normal{
+background:#334155;
+color:white;
 }
 </style>
-
 </head>
 
 <body>
 
-<h1>Sensi Pro</h1>
+<h1>SENS PRO ELITE</h1>
 
-<div class="card">
-<h2>Sensibilidade</h2>
+<div id="areaVIP" style="display:none;">
+<h2>Funções VIP</h2>
 
-<p>Geral: <span id="geral"></span></p>
-<p>Ponto vermelho: <span id="red"></span></p>
-<p>Mira 2x: <span id="m2"></span></p>
-<p>Mira 4x: <span id="m4"></span></p>
-<p>AWM: <span id="awm"></span></p>
-<p>Olhadinha: <span id="olho"></span></p>
+<p>Celular detectado automaticamente</p>
+
+<p id="celular"></p>
+
+<button class="vip">Gerar Sensibilidade</button>
 
 </div>
 
-<div class="card vip" id="vipArea" style="display:none;">
-<h2>Funções VIP desbloqueadas</h2>
-<p>Sensibilidade otimizada para seu celular</p>
+<div id="bloqueado">
+
+<h2>Área VIP bloqueada</h2>
+
+<a href="vip.html">
+<button class="normal">Ativar VIP</button>
+</a>
+
 </div>
-
-<br>
-
-<button onclick="window.location.href='vip.html'">
-Ativar VIP
-</button>
 
 <script>
 
-function detectarCelular(){
-let largura = window.innerWidth;
+let vip = localStorage.getItem("vipAtivo");
 
-if(largura < 400){
-return "fraco";
-}
-else if(largura < 500){
-return "medio";
-}
-else{
-return "forte";
-}
+if(vip == "true"){
+document.getElementById("areaVIP").style.display="block";
+document.getElementById("bloqueado").style.display="none";
 }
 
-function gerarSensi(){
+let celular = navigator.userAgent;
 
-let tipo = detectarCelular();
-
-let geral = Math.floor(Math.random()*200);
-let red = Math.floor(Math.random()*200);
-let m2 = Math.floor(Math.random()*200);
-let m4 = Math.floor(Math.random()*200);
-let awm = Math.floor(Math.random()*200);
-let olho = Math.floor(Math.random()*200);
-
-if(tipo === "fraco"){
-geral -= 20;
-red -= 20;
-}
-
-if(tipo === "medio"){
-geral += 5;
-}
-
-if(tipo === "forte"){
-geral += 15;
-}
-
-geral = Math.min(200, Math.max(0, geral));
-
-document.getElementById("geral").innerText = geral;
-document.getElementById("red").innerText = red;
-document.getElementById("m2").innerText = m2;
-document.getElementById("m4").innerText = m4;
-document.getElementById("awm").innerText = awm;
-document.getElementById("olho").innerText = olho;
-
-}
-
-gerarSensi();
-
-if(localStorage.getItem("vipAtivo") === "true"){
-document.getElementById("vipArea").style.display = "block";
+if(celular.includes("Samsung")){
+document.getElementById("celular").innerText="Samsung detectado";
+}else if(celular.includes("Xiaomi")){
+document.getElementById("celular").innerText="Xiaomi detectado";
+}else{
+document.getElementById("celular").innerText="Outro celular";
 }
 
 </script>
