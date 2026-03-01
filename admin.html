@@ -4,37 +4,47 @@
 <title>Painel Admin</title>
 <style>
 body{
-font-family:Arial;
-background:#111;
+background:#0f172a;
 color:white;
+font-family:Arial;
 text-align:center;
 }
 
 button{
-padding:10px 20px;
-font-size:18px;
+padding:12px 20px;
 background:gold;
 border:none;
 border-radius:8px;
-cursor:pointer;
+font-size:16px;
+margin:10px;
 }
 
-ul{
-margin-top:20px;
+.box{
+margin-top:60px;
 }
 </style>
 </head>
 
 <body>
 
-<h1>Painel Admin VIP</h1>
+<div class="box">
 
-<button onclick="gerarCodigo()">Gerar código VIP</button>
+<h1>Painel Admin</h1>
 
-<h2>Códigos</h2>
-<ul id="listaCodigos"></ul>
+<button onclick="criar()">Gerar Código VIP</button>
+
+<h2 id="codigo"></h2>
+
+</div>
 
 <script src="codes.js"></script>
+
+<script>
+function criar(){
+let novo = gerarCodigo();
+document.getElementById("codigo").innerText = novo;
+}
+</script>
 
 </body>
 </html>
