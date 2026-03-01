@@ -1,46 +1,71 @@
 let codigosVIP = JSON.parse(localStorage.getItem("codigosVIP")) || {};
 
 function salvarCodigos(){
-localStorage.setItem("codigosVIP", JSON.stringify(codigosVIP));
+  localStorage.setItem("codigosVIP", JSON.stringify(codigosVIP));
 }
 
 function gerarCodigo(){
-let codigo = "VIP-" + Math.random().toString(36).substring(2,10).toUpperCase();
+  let codigo = "VIP-" + Math.random().toString(36).substring(2,10).toUpperCase();
 
-codigosVIP[codigo] = {
-usado:false,
-expira: Date.now() + (30 * 24 * 60 * 60 * 1000)
-};
+  codigosVIP[codigo] = {
+    usado: false,
+    expira: Date.now() + (30 * 24 * 60 * 60 * 1000)
+  };
 
-salvarCodigos();
-return codigo;
+  salvarCodigos();
+  return codigo;
+}
+
+function usarCodigo(codigo){
+  if(!codigosVIP[codigo]) return false;
+
+  if(codigosVIP[codigo].usado) return false;
+
+  if(Date.now() > codigosVIP[codigo].expira){
+    delete codigosVIP[codigo];
+    salvarCodigos();
+    return false;
+  }
+
+  codigosVIP[codigo].usado = true;
+  salvarCodigos();
+  ativarVIP();
+  return true;
 }
 
 function verificarVIP(){
-return localStorage.getItem("vipAtivo") === "true";
+  return localStorage.getItem("vipAtivo") === "true";
 }
 
 function ativarVIP(){
-localStorage.setItem("vipAtivo","true");
+  localStorage.setItem("vipAtivo","true");
+}
+
+function removerVIP(){
+  localStorage.removeItem("vipAtivo");
 }
 
 function verificarExpirados(){
-for(let c in codigosVIP){
-if(Date.now() > codigosVIP[c].expira){
-delete codigosVIP[c];
-}
-}
-salvarCodigos();
+  for(let c in codigosVIP){
+    if(Date.now() > codigosVIP[c].expira){
+      delete codigosVIP[c];
+    }
+  }
+  salvarCodigos();
 }
 
 verificarExpirados();
 
 function detectarCelular(){
-let ua = navigator.userAgent.toLowerCase();
+  let ua = navigator.userAgent.toLowerCase();
 
-if(ua.includes("samsung")) return "Samsung";
-if(ua.includes("xiaomi")) return "Xiaomi";
-if(ua.includes("motorola")) return "Motorola";
-if(ua.includes("iphone")) return "iPhone";
-return "Android";
-}
+  if(ua.includes("samsung")) return "Samsung";
+  if(ua.includes("xiaomi")) return "Xiaomi";
+  if(ua.includes("motorola")) return "Motorola";
+  if(ua.includes("iphone")) return "iPhone";
+  if(ua.includes("realme")) return "Realme";
+  if(ua.includes("oppo")) return "Oppo";
+  if(ua.includes("vivo")) return "Vivo";
+
+  return "Android";
+    }
