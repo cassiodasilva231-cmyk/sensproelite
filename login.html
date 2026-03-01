@@ -1,36 +1,16 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Login - SensPro Elite</title>
+<title>Login</title>
 </head>
 
 <body>
 
-<h2>Login</h2>
+<h1>Login</h1>
 
-<label>Email:</label><br>
-<input type="email" id="email" placeholder="Digite seu email"><br><br>
+<p>Em breve sistema completo</p>
 
-<label>Senha:</label><br>
-<input type="password" id="senha" placeholder="Digite sua senha"><br><br>
-
-<button onclick="entrar()">Entrar</button>
-
-<script>
-function entrar(){
-  let email = document.getElementById("email").value;
-  let senha = document.getElementById("senha").value;
-
-  if(email === "" || senha === ""){
-    alert("Preencha tudo");
-    return;
-  }
-
-  localStorage.setItem("logado", "true");
-  window.location.href = "index.html";
-}
-</script>
+<a href="index.html">Entrar</a>
 
 </body>
 </html>
