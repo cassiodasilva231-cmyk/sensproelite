@@ -1,49 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Ativar VIP</title>
+<title>VIP</title>
 
 <style>
 body{
-background:#0f0f0f;
+background:#020617;
 color:white;
 font-family:Arial;
 text-align:center;
 }
 
 .box{
-margin-top:120px;
+margin-top:80px;
 }
 
 input{
 padding:10px;
-font-size:18px;
 border-radius:8px;
 border:none;
 }
 
 button{
 padding:10px 20px;
-font-size:18px;
 background:gold;
 border:none;
 border-radius:8px;
 margin-top:10px;
-cursor:pointer;
 }
 </style>
-
 </head>
 
 <body>
 
 <div class="box">
 
-<h1>Área VIP</h1>
+<h1>Ativar VIP</h1>
 
 <p>Digite seu código VIP</p>
 
-<input id="codigoVIP" placeholder="Código VIP">
+<input id="codigoVIP">
 
 <br>
 
@@ -65,7 +61,7 @@ if(codigosVIP[codigo] && !codigosVIP[codigo].usado){
 codigosVIP[codigo].usado = true;
 salvarCodigos();
 
-localStorage.setItem("vipAtivo","true");
+localStorage.setItem("vipAtivo", "true");
 
 document.getElementById("msg").innerText="VIP ativado!";
 
@@ -74,7 +70,7 @@ window.location.href="index.html";
 },1200);
 
 }else{
-document.getElementById("msg").innerText="Código inválido ou já usado";
+document.getElementById("msg").innerText="Código inválido ou usado";
 }
 
 }
