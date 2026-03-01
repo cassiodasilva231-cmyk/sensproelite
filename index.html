@@ -130,16 +130,7 @@ if(!localStorage.getItem("logado")){
 window.location.href="login.html";
 }
 
-let codigosVIP={
-"SENS-9A21":false,
-"SENS-4K77":false,
-"SENS-1X93":false,
-"SENS-8P55":false,
-"VIP-AB12":false,
-"VIP-KL44":false,
-"VIP-ZX91":false
-};
-
+let codigosVIP = JSON.parse(localStorage.getItem("codigosVIP")) || [];
 function gerar(){
 
 let dpi = document.getElementById("dpi").value;
