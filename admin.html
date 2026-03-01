@@ -1,44 +1,40 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
-<meta charset="UTF-8">
 <title>Painel Admin</title>
+<style>
+body{
+font-family:Arial;
+background:#111;
+color:white;
+text-align:center;
+}
+
+button{
+padding:10px 20px;
+font-size:18px;
+background:gold;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+ul{
+margin-top:20px;
+}
+</style>
 </head>
 
-<body style="background:black;color:white;text-align:center;font-family:Arial;">
+<body>
 
-<h1>Painel Admin</h1>
+<h1>Painel Admin VIP</h1>
 
-<button onclick="gerarCodigo()">Gerar Código VIP</button>
+<button onclick="gerarCodigo()">Gerar código VIP</button>
 
-<div id="lista"></div>
+<h2>Códigos</h2>
+<ul id="listaCodigos"></ul>
 
 <script src="codes.js"></script>
-
-<script>
-function gerarCodigo(){
-let codigo = "VIP-" + Math.random().toString(36).substring(2,8).toUpperCase();
-
-codigosVIP[codigo] = {
-usado:false
-};
-
-salvarCodigos();
-mostrarCodigos();
-}
-
-function mostrarCodigos(){
-let lista = document.getElementById("lista");
-lista.innerHTML = "";
-
-for(let codigo in codigosVIP){
-let status = codigosVIP[codigo].usado ? "USADO" : "DISPONÍVEL";
-lista.innerHTML += `<p>${codigo} - ${status}</p>`;
-}
-}
-
-mostrarCodigos();
-</script>
 
 </body>
 </html>
